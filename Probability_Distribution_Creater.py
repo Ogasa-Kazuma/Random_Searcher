@@ -1,16 +1,31 @@
 
-class Probability_Distribution_Creater:
+class Degrees_Distribution_Creater:
 
-    def __init__(self, func):
-        self.__func = func
+    def __init__(self, itemCountCalculator):
+        self.__itemCountCalculator = itemCountCalculator
 
-    def Create(self, args, ratio):
+    def Create(self, degreeRange):
 
-        elements = list()
+        degrees = self.__CreateDegrees(degreeRange)
 
-        for item_i in args:
-            num = ratio * self.__func(item_i)
-            for j in range(0, int(num)):
-                elements.append(item_i)
+        return degrees
 
-        return elements
+
+
+    def __CreateDegrees(self, degreeRange):
+        degrees = list()
+        for deg_i in degreeRange:
+            degrees = self.__AddElement(deg_i, degrees)
+
+        return degrees
+
+
+    def __AddElement(self, deg, degrees):
+        num = self.__CalcNumber(deg)
+        for j in range(0, num):
+            degrees.append(deg)
+
+        return degrees
+
+    def __CalcNumber(self, arg):
+        return self.__itemCountCalculator(arg)
