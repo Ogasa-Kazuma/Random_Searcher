@@ -4,7 +4,7 @@ class Degrees_Distribution_Creater:
     def __init__(self, itemCountCalculator):
         self.__itemCountCalculator = itemCountCalculator
 
-    def Create(self, degreeRange):
+    def Make(self, degreeRange):
 
         degrees = self.__CreateDegrees(degreeRange)
 
