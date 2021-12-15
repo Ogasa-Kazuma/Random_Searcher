@@ -59,18 +59,3 @@ class LinearFunction:
             return self.__maxValue
 
         self.__maxValue = value
-
-
-
-def main():
-
-    calculator = LinearFunction(1, 0, 120)
-    y = list()
-    degrees = np.arange(-180.0, 180.0, 0.1)
-    for i in degrees:
-        y.append(calculator.Calc(i))
-
-    plt.scatter(degrees, y, c = 'red')
-
-if __name__ == "__main__":
-    main()
