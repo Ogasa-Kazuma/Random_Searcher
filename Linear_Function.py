@@ -1,7 +1,7 @@
 
 class LinearFunction:
 
-    def __init__(self, maxPoint, zeroPoint, adjustRatio):
+    def __init__(self, maxValue, maxPoint, zeroPoint):
         self.__zeroPoint = zeroPoint
         self.__maxPoint = maxPoint
 
@@ -9,7 +9,7 @@ class LinearFunction:
 
         dec = self.__CalcDec(arg)
         #1、じゃなくてmax_valueのほうがいいかも
-        probability = 1 - dec
+        probabilit = maxValue - dec
 
         if(probability <= 0):
             probability = 0
