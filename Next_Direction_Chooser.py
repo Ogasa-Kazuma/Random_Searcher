@@ -6,14 +6,16 @@ class NextDirectionChooser:
     def __init__(self, degreeDistMaker):
         self.__degreeDistMaker = degreeDistMaker
         self.__degreeDist = None
-        self.__isInitialized = False
+
+
+
+    def InitDist(self, degreeRange):
+        dist = self.__degreeDistMaker.Make(degreeRange)
+        self.__Dist(dist)
+
 
 
     def Choice(self, degreeRange, delDegreeRange):
-        if(not self.__Initialized()):
-            dist = degreeDistMaker.Make(degreeRange)
-            self.__Dist(dist)
-
 
         degree = random.choice(self.__Dist())
         self.__ExcludeSearchedDegree(degree, delDegreeRange)
@@ -21,9 +23,9 @@ class NextDirectionChooser:
         return degree
 
 
-    def Clear(self):
-        self.__isInitialized = False
-        self.__Dist(None)
+    def IsEnd():
+        if(len(self.__Dist()) == 0):
+            return True
 
 
     def __ExcludeSearchedDegree(self, deg, degRange):
