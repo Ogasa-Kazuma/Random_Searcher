@@ -23,16 +23,18 @@ class NextDirectionChooser:
         return degree
 
 
-    def IsEnd():
+    def IsEnd(self):
         if(len(self.__Dist()) == 0):
             return True
+
+        return False
 
 
     def __ExcludeSearchedDegree(self, deg, degRange):
 
         #0より小さい値は除去
-        lwr = self.__DelMinusArea(deg - degRange)
-        upr = self.__DelMinusArea(deg + degRange)
+        lwr = deg - degRange
+        upr = deg + degRange
 
         #探索した角度とその周辺の角度は次の探索で使用しない
         narrowed_dist = self.__Exclude(lwr, upr)
@@ -63,11 +65,6 @@ class NextDirectionChooser:
         self.__degreeDist = value
 
 
-    def __DelMinusArea(self, number):
-        if(number <= 0):
-            number = 0
-
-        return number
 
     def __UpdateDist(self, new_dist):
         self.__Dist(new_dist)
