@@ -47,9 +47,31 @@ def ExcludeSearchedDegree(chooser, degrees, delDegreeRange):
     print(chooser.Choice(delDegreeRange))
     print(chooser.IsEnd())
     print(chooser.Choice(delDegreeRange))
-    print(chooser.Choice(delDegreeRange))
 
 
+class TestParams:
+
+    def __init__(self, maxValue, maxPoint, zeroPoint, dist, delDegreeRange):
+        self.__maxValue = maxValue
+        self.__maxPoint = maxPoint
+        self.__zeroPoint = zeroPoint
+        self.__dist = dist
+        self.__delDegreeRange = delDegreeRange
+
+    def GetMaxValue(self):
+        return self.__maxValue
+
+    def GetMaxPoint(self):
+        return self.__maxPoint
+
+    def GetZeroPoint(self):
+        return self.__zeroPoint
+
+    def GetDist(self):
+        return self.__dist
+
+    def GetDelDegreeRange(self):
+        return self.__delDegreeRange
 
 
 
@@ -61,15 +83,17 @@ def ExcludeSearchedDegree(chooser, degrees, delDegreeRange):
 ##################################### Main ####################################
 def main():
 
+    params = TestParams(maxValue = 1000, maxPoint = 0, zeroPoint = 90, dist = np.arange(-180.0, 180.0, 0.1), delDegreeRange = 90)
+
     #進行方向選択者オブジェに角度分布作成者オブジェを注入
-    func = Linear_Function.LinearFunction(maxValue = 1000, maxPoint = 0, zeroPoint = 90)
+    func = Linear_Function.LinearFunction(params.GetMaxValue(), params.GetMaxPoint(), params.GetZeroPoint())
     distCalculator = Linear_Function_Ret_Int.LinearFunctionRetInt(func)
     distMaker = Probability_Distribution_Creater.Degrees_Distribution_Creater(distCalculator)
     chooser = Next_Direction_Chooser.NextDirectionChooser(distMaker)
 
     # Test
     #Visualize(chooser, np.arange(-180.0, 180.0, 0.1), choiceCnt = 100)
-    ExcludeSearchedDegree(chooser, np.arange(-180.0, 180.0, 0.1), delDegreeRange = 90)
+    ExcludeSearchedDegree(chooser, params.GetDist(), params.GetDelDegreeRange())
 
 ##############################################################################
 
