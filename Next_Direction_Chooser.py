@@ -15,7 +15,7 @@ class NextDirectionChooser:
 
 
 
-    def Choice(self, degreeRange, delDegreeRange):
+    def Choice(self, delDegreeRange):
 
         degree = random.choice(self.__Dist())
         self.__ExcludeSearchedDegree(degree, delDegreeRange)

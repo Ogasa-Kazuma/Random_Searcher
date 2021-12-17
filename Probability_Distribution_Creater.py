@@ -28,4 +28,4 @@ class Degrees_Distribution_Creater:
         return degrees
 
     def __CalcNumber(self, arg):
-        return self.__itemCountCalculator(arg)
+        return self.__itemCountCalculator.Calc(arg)
