@@ -10,7 +10,7 @@ class PickleReader():
     def __init__(self):
         pass
 
-    def load(self, path):
+    def Read(self, path):
         file = pd.read_pickle(str(path))
         return file
 
