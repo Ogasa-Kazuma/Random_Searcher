@@ -37,6 +37,9 @@ class SearchingDataRecorder:
     def GetLatestTime(self):
         return self.__t[-1]
 
+    def GetLatestPollution(self):
+        return self.__pollution[-1]
+
     def GetPositions(self):
         return self.__x, self.__y
 
