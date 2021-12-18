@@ -29,13 +29,18 @@ class OnePointSearcher:
 
 
 
+    def __IsInt(self, x, y):
+        isInt = ((type(x) == int) and (type(y) == int))
+        if(not isInt):
+            raise ValueError('探索座標は整数にしてください')
+
 
     def __CanSearch(self, x, y):
         isSearchable = self.__IsInSearchableArea(x, y)
         if(not isSearchable):
             raise ValueError('探索不可能領域です')
 
-        #isInt = self.__IsInt(x, y)
+        self.__IsInt(x, y)
 
     def __RecordData(self, x, y, speed):
         self.__dataRecorder.Append(dict(x = x, y = y, speed = speed))

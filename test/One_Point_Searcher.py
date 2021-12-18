@@ -31,10 +31,10 @@ def main():
     onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field)
 
     #x, yに小数を入力しても動作してしまう
-    print(onePointSearcher.Search(30, 80, speed = 20))
-    print(onePointSearcher.Search(30, 81, speed = 1))
+    print(onePointSearcher.Search(x = 80, y = 80, speed = 9))
+    print(onePointSearcher.Search(x = 30, y = 81, speed = 2))
 
-    print(pollutionReader.Read(30, 81, 1))
+    print(pollutionReader.Read(x = 30, y = 81, t = 1))
 
 if __name__ == "__main__":
     main()
