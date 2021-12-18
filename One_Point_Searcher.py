@@ -14,9 +14,11 @@ class OnePointSearcher:
         self.__CanSearch(x, y)
 
         self.__RecordData(x, y, speed)
+        t = self.__Time()
         pollution = self.__MeasurePollution()
 
-        return pollution
+
+        return x, y, t, pollution
 
 
     def __IsInSearchableArea(self, x, y):
@@ -27,6 +29,8 @@ class OnePointSearcher:
 
         return isSearchable
 
+    def __Time(self):
+        return self.__dataRecorder.GetLatestTime()
 
 
     def __IsInt(self, x, y):
