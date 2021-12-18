@@ -24,9 +24,10 @@ class SearchingDataRecorder:
         self.__y.append(y)
 
         t = self.__CalcTime(speed)
-        self.__t.append(t)
+
 
         pollution = self.__pollutionReader.Read(x, y, t)
+        self.__t.append(t)
 
         self.__pollution.append(pollution)
 

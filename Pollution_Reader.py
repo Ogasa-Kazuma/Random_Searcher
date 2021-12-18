@@ -59,7 +59,10 @@ class PollutionReader:
         fileLocation = self.__dirPath + str(t) + self.__format
         files = glob.glob(fileLocation, recursive=True)
 
+
         file = files[0]
+
+
 
         return file
 

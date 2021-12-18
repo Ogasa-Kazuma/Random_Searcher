@@ -25,7 +25,7 @@ def main():
     print(dataRecorder.GetAllData())
     dataRecorder.Append(dict(x = 99, y = 99, speed = 2))
     print(dataRecorder.GetAllData())
-    dataRecorder.Append(dict(x = 30, y = 60, speed = 2))
+    dataRecorder.Append(dict(x = 30, y = 60, speed = 1))
     print(dataRecorder.GetAllData())
 
 if __name__ == "__main__":
