@@ -40,7 +40,7 @@ class StraightLineSearcher:
             if(self.__IsTimeOver(t)):
                 return x, y, t, concent
 
-            if(concent >= threshold):
+            if(concent > threshold):
                 return x, y, t, concent
 
         return x, y, t, concent

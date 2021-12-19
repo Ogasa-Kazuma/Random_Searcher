@@ -9,7 +9,7 @@ class SurroundingSearcher:
         self.__params = params
 
 
-    def Search(self, start_x, start_y, baseDirection, threshold, speed, maxDistance, maxTime):
+    def Search(self, start_x, start_y, baseDirection, threshold, speed, maxDistance):
 
         degreeCollection = self.__DistElements()
         self.__InitDist(degreeCollection)
