@@ -4,9 +4,10 @@ import math
 class StraightLineSearcher:
 
 
-    def __init__(self, pointSearcher):
+    def __init__(self, pointSearcher, timeLimitter):
 
         self.__pointSearcher = pointSearcher
+        self.__timeLimitter = timeLimitter
 
 
     def Search(self, kwargs):
@@ -30,15 +31,33 @@ class StraightLineSearcher:
         concent = None
         for point_i in range(len(x_points)):
 
+
             try:
                 x, y, t, concent = self.__pointSearcher.Search(x_points[point_i], y_points[point_i], speed)
             except ValueError:
+                return x, y, t, concent
+
+            if(self.__IsTimeOver(t)):
                 return x, y, t, concent
 
             if(concent >= threshold):
                 return x, y, t, concent
 
         return x, y, t, concent
+
+
+    def __IsTimeOver(self, time):
+        self.__timeLimitter.Update(time)
+        isTimeOver = self.__timeLimitter.IsTimeOver()
+        return isTimeOver
+
+    def __LastData(self, x, y, t, pollution):
+        last_x = x
+        last_y = y
+        last_t = t
+        last_pollution = pollution
+        return last_x, last_y, last_t, last_pollution
+
 
 
     def __SpecifyPointsBetweenTwoPoints(self, x1, x2, y1, y2):
