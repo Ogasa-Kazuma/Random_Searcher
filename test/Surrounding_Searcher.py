@@ -14,6 +14,7 @@ import Linear_Function
 import Linear_Function_Ret_Int
 import Probability_Distribution_Creater
 import Searching_Data_Recorder
+import Data_Recorder
 import Pollution_Reader
 import Pickle_Reader
 import Field
@@ -29,6 +30,7 @@ importlib.reload(Linear_Function)
 importlib.reload(Linear_Function_Ret_Int)
 importlib.reload(Probability_Distribution_Creater)
 importlib.reload(Searching_Data_Recorder)
+importlib.reload(Data_Recorder)
 importlib.reload(Pollution_Reader)
 importlib.reload(Pickle_Reader)
 importlib.reload(Field)
@@ -52,9 +54,9 @@ def main():
     #第3 注入オブジェクト
     pklReader = Pickle_Reader.PickleReader()
     pollutionReader = Pollution_Reader.PollutionReader("/home/kazuma/研究/RandomSearcher/DataLog/2021年/12月/3日/18時/40分/6秒/", "pkl", pklReader)
-    dataRecorder = Searching_Data_Recorder.SearchingDataRecorder(pollutionReader)
+    dataRecorder = Data_Recorder.DataRecorder()
     field = Field.FieldClass(dict(uprX = 99, uprY = 99, uprT = 2999, lwrX = 0, lwrY = 0, lwrT = 0))
-    onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field)
+    onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field, pollutionReader)
     lineSearcher = Straight_Line_Searcher.StraightLineSearcher(onePointSearcher)
 
     #第4注入オブジェクト
@@ -64,7 +66,14 @@ def main():
     # 本体
 
     surroundingSearcher = Surrounding_Searcher.SurroundingSearcher(chooser, lineSearcher, coordinateCalculator, params)
-    print(surroundingSearcher.Search(start_x = 30, start_y = 50, baseDirection = 90, threshold = 80, speed = 2, maxDistance = 100, maxTime = 1000))
+    print(surroundingSearcher.Search(start_x            = 30,\
+                                     start_y            = 50, \
+                                     baseDirection      = 90,\
+                                     threshold          = 80,\
+                                     start_time         = 10,\
+                                     max_time           = 100,\
+                                     speed              = 2,\
+                                     maxDistance        = 100))
 
 
 
