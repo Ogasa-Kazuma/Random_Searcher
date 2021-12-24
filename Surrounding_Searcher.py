@@ -9,12 +9,14 @@ class SurroundingSearcher:
         self.__params = params
 
 
-    def Search(self, start_x, start_y, baseDirection, threshold, speed, maxDistance):
+    def Search(self, start_x, start_y, baseDirection, threshold, start_time, max_time, speed, maxDistance):
 
         degreeCollection = self.__DistElements()
         self.__InitDist(degreeCollection)
 
         x, y = start_x, start_y
+        t = start_time
+
 
         while(1):
 
@@ -23,7 +25,7 @@ class SurroundingSearcher:
 
             direction = self.__ChoiceNextDirection(baseDirection)
             x_next, y_next = self.__CalcNextPosition(start_x, start_y, maxDistance, direction)
-            x, y, t, pollution = self.__SearchStraightLine(threshold, x, y, x_next, y_next, speed)
+            x, y, t, pollution = self.__SearchStraightLine(threshold, x, y, x_next, y_next, t, max_time, speed)
 
 
             if(pollution > threshold):
@@ -53,8 +55,8 @@ class SurroundingSearcher:
         y = y + y_change
         return x, y
 
-    def __SearchStraightLine(self, threshold, x_now, y_now, x_next, y_next, speed):
+    def __SearchStraightLine(self, threshold, x_now, y_now, x_next, y_next, start_time, max_time, speed):
 
-        args = dict(threshold = threshold, x1 = x_now, x2 = x_next, y1 = y_now, y2 = y_next, speed = speed)
+        args = dict(threshold = threshold, x1 = x_now, x2 = x_next, y1 = y_now, y2 = y_next, start_time = start_time, max_time = max_time, speed = speed)
         x, y, t, pollution = self.__straightLineSearcher.Search(args)
         return x, y, t, pollution

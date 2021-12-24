@@ -4,33 +4,31 @@
 class OnePointSearcher:
 
 
-    def __init__(self, dataRecorder, field):
+    def __init__(self, dataRecorder, field, pollutionReader):
         self.__dataRecorder = dataRecorder
         self.__field = field
+        self.__pollutionReader = pollutionReader
 
 
-    def Search(self, x, y, speed):
+    def Search(self, x, y, t):
 
-        self.__CanSearch(x, y)
-
-        self.__RecordData(x, y, speed)
-        t = self.__Time()
-        pollution = self.__MeasurePollution()
-
+        self.__CanSearch(x, y, t)
+        pollution = self.__MeasurePollution(x, y, t)
+        self.__RecordDatas(x, y, t, pollution)
 
         return x, y, t, pollution
 
 
-    def __IsInSearchableArea(self, x, y):
+    def __IsInSearchableArea(self, x, y, t):
         isSearchable = x >= self.__field.GetLowerX() and \
                        x <= self.__field.GetUpperX() and \
                        y >= self.__field.GetLowerY() and \
-                       y <= self.__field.GetUpperY()
+                       y <= self.__field.GetUpperY() and \
+                       t >= self.__field.GetLowerT() and \
+                       t <= self.__field.GetUpperT()
 
         return isSearchable
 
-    def __Time(self):
-        return self.__dataRecorder.GetLatestTime()
 
 
     def __IsInt(self, x, y):
@@ -39,16 +37,16 @@ class OnePointSearcher:
             raise ValueError('探索座標は整数にしてください')
 
 
-    def __CanSearch(self, x, y):
-        isSearchable = self.__IsInSearchableArea(x, y)
+    def __CanSearch(self, x, y, t):
+        isSearchable = self.__IsInSearchableArea(x, y, t)
         if(not isSearchable):
-            raise ValueError('探索不可能領域です')
+            raise ValueError('探索不可能座標もしくは不可能時間です')
 
         self.__IsInt(x, y)
 
-    def __RecordData(self, x, y, speed):
-        self.__dataRecorder.Append(dict(x = x, y = y, speed = speed))
+    def __RecordDatas(self, x, y, t, pollution):
+        self.__dataRecorder.Append(x, y, t, pollution)
 
-    def __MeasurePollution(self):
-        pollution = self.__dataRecorder.GetLatestPollution()
+    def __MeasurePollution(self, x, y, t):
+        pollution = self.__pollutionReader.Read(x, y, t)
         return pollution
