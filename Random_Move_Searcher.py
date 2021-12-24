@@ -38,22 +38,9 @@ class RandomMoveSearcher:
 
     def __NextPosition(self, min_x, min_y, max_x, max_y):
 
-        while(1):
-            next_x = random.randint(min_x, max_x)
-            next_y = random.randint(min_y, max_y)
-            isSearched = self.__IsSearched(next_x, next_y)
-            if(not isSearched):
-                return next_x, next_y
-
-
-
-    def __IsSearched(self, x, y):
-        xList, yList, _, _ = self.__dataRecorder.GetAllData()
-        if(x in xList and y in yList):
-            return True
-
-        return False
-
+        next_x = random.randint(min_x, max_x)
+        next_y = random.randint(min_y, max_y)
+        return next_x, next_y
 
     def __IsFound(self, threshold, pollution):
         return pollution > threshold
