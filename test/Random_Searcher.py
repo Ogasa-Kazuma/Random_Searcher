@@ -83,7 +83,7 @@ def main():
 
     randomSearcher = Random_Searcher.RandomSearcher(surroundingSearcher, randomMoveSearcher)
     print(randomSearcher.Search(start_time              = 0,\
-                          max_time                      = 200,\
+                          max_time                      = 2000,\
                           start_x                       = 50,\
                           start_y                       = 50,\
                           max_random_x                  = 99,\
@@ -97,6 +97,8 @@ def main():
                           ))
 
     print(dataRecorder.GetAllData())
+
+
 
 if __name__ == "__main__":
     main()
