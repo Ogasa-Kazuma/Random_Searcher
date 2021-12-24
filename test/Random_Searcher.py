@@ -14,6 +14,7 @@ import Linear_Function
 import Linear_Function_Ret_Int
 import Probability_Distribution_Creater
 import Searching_Data_Recorder
+import Data_Recorder
 import Pollution_Reader
 import Pickle_Reader
 import Field
@@ -31,6 +32,7 @@ importlib.reload(Linear_Function)
 importlib.reload(Linear_Function_Ret_Int)
 importlib.reload(Probability_Distribution_Creater)
 importlib.reload(Searching_Data_Recorder)
+importlib.reload(Data_Recorder)
 importlib.reload(Pollution_Reader)
 importlib.reload(Pickle_Reader)
 importlib.reload(Field)
@@ -58,11 +60,10 @@ def main():
     #第3 注入オブジェクト
     pklReader = Pickle_Reader.PickleReader()
     pollutionReader = Pollution_Reader.PollutionReader("/home/kazuma/研究/RandomSearcher/DataLog/2021年/12月/3日/18時/40分/6秒/", "pkl", pklReader)
-    dataRecorder = Searching_Data_Recorder.SearchingDataRecorder(pollutionReader)
+    dataRecorder = Data_Recorder.DataRecorder()
     field = Field.FieldClass(dict(uprX = 99, uprY = 99, uprT = 2999, lwrX = 0, lwrY = 0, lwrT = 0))
-    onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field)
-    timeLimitter = Time_Limitter.TimeLimitter(limitFromStart_s = 200)
-    lineSearcher = Straight_Line_Searcher.StraightLineSearcher(onePointSearcher, timeLimitter)
+    onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field, pollutionReader)
+    lineSearcher = Straight_Line_Searcher.StraightLineSearcher(onePointSearcher)
 
     #第4注入オブジェクト
     params = Params.ParamsClass(dict(distElements = np.arange(-180.0, 180.0, 0.1), excludeDegreeWidth = 30))
@@ -74,14 +75,15 @@ def main():
 
 
 
-    randomMoveSearcher = Random_Move_Searcher.RandomMoveSearcher(timeLimitter, dataRecorder, lineSearcher)
+    randomMoveSearcher = Random_Move_Searcher.RandomMoveSearcher(dataRecorder, lineSearcher)
 
 
 
 
 
-    randomSearcher = Random_Searcher.RandomSearcher(timeLimitter, surroundingSearcher, randomMoveSearcher)
-    print(randomSearcher.Search(start_time                    = 0,\
+    randomSearcher = Random_Searcher.RandomSearcher(surroundingSearcher, randomMoveSearcher)
+    print(randomSearcher.Search(start_time              = 0,\
+                          max_time                      = 200,\
                           start_x                       = 50,\
                           start_y                       = 50,\
                           max_random_x                  = 99,\
@@ -93,6 +95,8 @@ def main():
                           speed                         = 2,\
                           maxStraightLineSearchDistance = 10\
                           ))
+
+    print(dataRecorder.GetAllData())
 
 if __name__ == "__main__":
     main()
