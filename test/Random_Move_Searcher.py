@@ -42,7 +42,7 @@ def main():
     print(randomMoveSearcher.Search(start_x = 50,\
                                     start_y = 50,\
                                     start_time = 10,\
-                                    max_time = 15,\
+                                    max_time = 500,\
                                     max_x = 99,\
                                     max_y = 99,\
                                     min_x = 0,\

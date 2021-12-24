@@ -18,7 +18,7 @@ class RandomMoveSearcher:
 
         while(1):
             next_x, next_y = self.__NextPosition(min_x, min_y, max_x, max_y)
-            x, y, t, pollution = self.__SearchStraightLine(threshold, x, next_x, y, next_y, start_time, max_time, speed)
+            x, y, t, pollution = self.__SearchStraightLine(threshold, x, next_x, y, next_y, t, max_time, speed)
             if(self.__IsTimeOver(t, max_time)):
                 return x, y, t, pollution
 
