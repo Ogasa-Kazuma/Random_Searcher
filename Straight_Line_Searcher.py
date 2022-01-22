@@ -26,10 +26,7 @@ class StraightLineSearcher:
 
     def __SearchLine(self, threshold, x1, x2, y1, y2, start_time, max_time, speed):
         x_points, y_points, times = self.__SpecifyPointsBetweenTwoPoints(x1, x2, y1, y2, start_time, speed)
-        x = None
-        y = None
-        t = None
-        concent = None
+        x, y, t, concent = self.__pointSearcher.Search(x1, y1, start_time)
         for point_i in range(len(x_points)):
 
 

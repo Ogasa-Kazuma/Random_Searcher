@@ -33,7 +33,7 @@ class TestParams:
 
 def main():
 
-    params = TestParams(1, 0, 30)
+    params = TestParams(100, 0, 180)
 
     linearFunc = \
     Linear_Function.LinearFunction(params.GetMaxValue(), params.GetMaxPoint(), params.GetZeroPoint())
@@ -43,7 +43,13 @@ def main():
     for i in degrees:
         results.append(linearFunc.Calc(i))
 
-    plt.scatter(degrees, results, c = 'red')
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    ax.set_xlabel("基準角度との差分[deg]")
+    ax.set_xlabel("確率の高さ[-]")
+    ax.scatter(degrees, results, c = 'red')
 
 
 if __name__ == "__main__":

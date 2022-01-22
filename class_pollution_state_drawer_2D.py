@@ -1,23 +1,10 @@
 ############################## ライブラリ  #####################################
 import numpy as np
 import matplotlib.pyplot as plt
-import random
-import math
-from mpl_toolkits.mplot3d.axes3d import Axes3D
-from itertools import chain
-import collections
-from abc import ABCMeta, abstractmethod
 
-import common
-
-import class_pollution_state_drawer
-from class_pollution_state_drawer import Pollution_State_Drawer
-import importlib
-importlib.reload(class_pollution_state_drawer)
-importlib.reload(common)
 ############################################################################
 
-class Pollution_State_Drawer_2D(Pollution_State_Drawer):
+class Pollution_State_Drawer_2D():
 
     def __init__(self, figure_object, drawing_area):
 
