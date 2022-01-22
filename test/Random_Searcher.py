@@ -55,6 +55,25 @@ importlib.reload(Pollution_Data_Reshaper)
 importlib.reload(Saved_Pollution_Indexs)
 
 
+
+
+def ExcludeOverTime(max_time, dataRecorder):
+    x, y, t, pollutions = dataRecorder.GetAllData()
+    new_x = list()
+    new_y = list()
+    for i in range(len(x)):
+        if(t[i] <= max_time):
+            new_x.append(x[i])
+            new_y.append(y[i])
+
+    return new_x, new_y
+
+
+
+
+
+
+
 def main():
 
     #第1 注入オブジェクト
@@ -89,12 +108,11 @@ def main():
 
 
 
-
     randomSearcher = Random_Searcher.RandomSearcher(surroundingSearcher, randomMoveSearcher)
     print(randomSearcher.Search(start_time              = 1000,\
                           max_time                      = 1150,\
-                          start_x                       = 50,\
-                          start_y                       = 50,\
+                          start_x                       = 99,\
+                          start_y                       = 99,\
                           max_random_x                  = 99,\
                           max_random_y                  = 99,\
                           min_random_x                  = 0,\
@@ -102,33 +120,42 @@ def main():
                           firstDirection                = 315,\
                           threshold                     = 10,\
                           speed                         = 2,\
-                          maxStraightLineSearchDistance = 30\
+                          maxStraightLineSearchDistance = 5\
                           ))
 
 ###############################################################################
     #/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/1日/16時/20分/13秒
     #/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/3日/22時/49分/16秒/
-    path = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/1日/16時/20分/13秒/" + str(0) + ".pkl"
-    indexNames = Saved_Pollution_Indexs.SavedPollutionIndexs("pollutions", "x", "y")
-    pollutionReshaper = Pollution_Data_Reshaper.PollutionDataReshaper(pklReader)
-    draw_x, draw_y, pollutions = pollutionReshaper.Reshape(path, indexNames)
+
+
+
+    def SaveMoment():
+        path = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/1日/16時/20分/13秒/" + str(0) + ".pkl"
+        indexNames = Saved_Pollution_Indexs.SavedPollutionIndexs("pollutions", "x", "y")
+        pollutionReshaper = Pollution_Data_Reshaper.PollutionDataReshaper(pklReader)
+        draw_x, draw_y, pollutions = pollutionReshaper.Reshape(path, indexNames)
 
 
 
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_aspect('equal')
-    ax.set_xlabel("x [m]")
-    ax.set_ylabel("y [m]")
-    ax.scatter(draw_x, draw_y, s= 20,  c = pollutions, cmap = 'binary')
-################################################################
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.set_aspect('equal')
+        ax.set_xlabel("x [m]")
+        ax.set_ylabel("y [m]")
+        ax.scatter(draw_x, draw_y, s= 20,  c = pollutions, cmap = 'binary')
+    ################################################################
 
-    x, y, t, pollutions = dataRecorder.GetAllData()
-    ax.plot(x, y, c = 'blue', linewidth = 1)
-    plt.show()
-    savePath = "../PollutionCreate/Pic_Pollution/thesis/" + "dynamic_method_" + "len30_deg315" + ".png"
-    fig.savefig(savePath)
+        x, y, t, pollutions = dataRecorder.GetAllData()
+
+
+
+
+        x, y = ExcludeOverTime(max_time = 1150, dataRecorder = dataRecorder)
+        ax.plot(x, y, c = 'blue', linewidth = 1)
+        plt.show()
+        savePath = "../PollutionCreate/Pic_Pollution/thesis/" + "dynamic_method_" + "len30_deg315" + ".png"
+        fig.savefig(savePath, dpi = 300)
 
 
 if __name__ == "__main__":
