@@ -29,6 +29,9 @@ import Random_Searcher
 import Time_Limitter
 import Random_Move_Searcher
 import class_pollution_state_drawer_2D
+import Pollution_Data_Reshaper
+import Saved_Pollution_Indexs
+
 
 importlib.reload(Next_Direction_Chooser)
 importlib.reload(Linear_Function)
@@ -48,6 +51,8 @@ importlib.reload(Random_Searcher)
 importlib.reload(Time_Limitter)
 importlib.reload(Random_Move_Searcher)
 importlib.reload(class_pollution_state_drawer_2D)
+importlib.reload(Pollution_Data_Reshaper)
+importlib.reload(Saved_Pollution_Indexs)
 
 
 def main():
@@ -104,32 +109,9 @@ def main():
     #/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/1日/16時/20分/13秒
     #/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/3日/22時/49分/16秒/
     path = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/1日/16時/20分/13秒/" + str(0) + ".pkl"
-    pollutionLog = pklReader.Read(path)
-    plns = copy.deepcopy(pollutionLog["pollutions"])
-    plns = plns.values.tolist()
-    maxPln = max(plns)
-
-    for i in range(len(plns)):
-        plns[i] = plns[i] / maxPln
-
-
-    xlim = int(pollutionLog["x"][0])
-    ylim = int(pollutionLog["y"][0])
-    first_t = int(pollutionLog["start_t"][0])
-    last_t = int(pollutionLog["end_t"][0])
-
-    new_x = list()
-    new_y = list()
-
-
-
-
-    for x_i in range(0, xlim, 1):
-        for y_i in range(0, ylim, 1):
-
-            new_x.append(x_i)
-            new_y.append(y_i)
-
+    indexNames = Saved_Pollution_Indexs.SavedPollutionIndexs("pollutions", "x", "y")
+    pollutionReshaper = Pollution_Data_Reshaper.PollutionDataReshaper(pklReader)
+    draw_x, draw_y, pollutions = pollutionReshaper.Reshape(path, indexNames)
 
 
 
@@ -139,11 +121,11 @@ def main():
     ax.set_aspect('equal')
     ax.set_xlabel("x [m]")
     ax.set_ylabel("y [m]")
-    ax.scatter(new_x, new_y, s= 20,  c = plns, cmap = 'binary')
+    ax.scatter(draw_x, draw_y, s= 20,  c = pollutions, cmap = 'binary')
 ################################################################
 
     x, y, t, pollutions = dataRecorder.GetAllData()
-    ax.scatter(x, y, s = 5, c = 'red')
+    ax.plot(x, y, c = 'blue', linewidth = 1)
     plt.show()
     savePath = "../PollutionCreate/Pic_Pollution/thesis/" + "dynamic_method_" + "len30_deg315" + ".png"
     fig.savefig(savePath)
