@@ -1,5 +1,6 @@
 
 import math
+import matplotlib.pyplot as plt
 
 class RandomSearcher:
 
@@ -18,10 +19,16 @@ class RandomSearcher:
             last_x = x
             last_y = y
 
+
+            print("before surrounding" + str(t))
             x, y, t, pollution = self.__CloseToOrigin(x, y, direction, threshold, t, max_time, speed, maxStraightLineSearchDistance)
             print(x, y, t, pollution)
             if(self.__IsTimeOver(t, max_time)):
                 return x, y, t, pollution
+            if(pollution > threshold):
+                threshold = pollution
+
+
 
             x, y, t, pollution = self.__RandomMove(x, y, max_random_x, max_random_y, min_random_x, min_random_y, t, max_time, speed, threshold)
             if(self.__IsTimeOver(t, max_time)):
@@ -49,7 +56,8 @@ class RandomSearcher:
         direction = baseDirection
 
         while(1):
-            x, y, t, pollution = self.__surroundingSearcher.Search(x, y, direction, threshold, start_time, max_time, speed, maxStraightLineSearchDistance)
+            print("__CloseToOrigin" + str(t))
+            x, y, t, pollution = self.__surroundingSearcher.Search(x, y, direction, threshold, t, max_time, speed, maxStraightLineSearchDistance)
 
             if(self.__IsTimeOver(t, max_time)):
                 return x, y, t, pollution
@@ -66,7 +74,9 @@ class RandomSearcher:
 
     def __RandomMove(self, start_x, start_y, max_x, max_y, min_x, min_y, start_time, max_time, speed, threshold):
         while(1):
+            print("start t __RandomMove t" + str(start_time))
             x, y, t, pollution = self.__randomMoveSearcher.Search(start_x, start_y, start_time, max_time, max_x, max_y, min_x, min_y,speed, threshold)
+            print("__RandomMove t, " + str(t))
             if(self.__IsTimeOver(t, max_time)):
                 return x, y, t, pollution
             if(pollution > threshold):

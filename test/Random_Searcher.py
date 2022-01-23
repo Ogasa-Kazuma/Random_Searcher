@@ -71,7 +71,7 @@ def ExcludeOverTime(max_time, dataRecorder):
 
 
 def PrintSearchingMoment(fileDir, indexNames, pollutionReshaper, dataRecorder, start_t, end_t):
-    for t_i in range(start_t, end_t, 1):
+    for t_i in range(start_t, end_t, 10):
         path = fileDir + str(t_i) + ".pkl"
         draw_x, draw_y, pollutions = pollutionReshaper.Reshape(path, indexNames)
         fig = plt.figure()
@@ -121,7 +121,7 @@ def main():
 
 
 
-    randomMoveSearcher = Random_Move_Searcher.RandomMoveSearcher(dataRecorder, lineSearcher)
+    randomMoveSearcher = Random_Move_Searcher.RandomMoveSearcher(lineSearcher)
 
 
 
@@ -135,7 +135,7 @@ def main():
                           max_random_y                  = 99,\
                           min_random_x                  = 0,\
                           min_random_y                  = 0,\
-                          firstDirection                = 315,\
+                          firstDirection                = 275,\
                           threshold                     = 10,\
                           speed                         = 2,\
                           maxStraightLineSearchDistance = 30\

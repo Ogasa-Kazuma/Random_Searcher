@@ -25,8 +25,9 @@ class StraightLineSearcher:
 
 
     def __SearchLine(self, threshold, x1, x2, y1, y2, start_time, max_time, speed):
+        print("start straight line" + str(start_time))
         x_points, y_points, times = self.__SpecifyPointsBetweenTwoPoints(x1, x2, y1, y2, start_time, speed)
-        x, y, t, concent = self.__pointSearcher.Search(x1, y1, start_time)
+
         for point_i in range(len(x_points)):
 
 
@@ -63,16 +64,81 @@ class StraightLineSearcher:
         angle = math.atan2((y2 - y1), (x2 - x1))
         distance = math.sqrt((x2 - x1) ** (2) + (y2 - y1) ** (2))
 
-        x, y, t = list(), list(), list()
+        xList, yList = self.__CalcPointsOnLine(distance, angle, x1, y1)
+        xList, yList = self.__RoundPoints(xList, yList)
 
-        #2点を結ぶ直線状の座標を全て計算
-        for distance_i in range(0, round(distance)):
-            x.append(round(x1 + distance_i * math.cos(angle)))
-            y.append(round(y1 + distance_i * math.sin(angle)))
-            time = begin_time + self.__CalcTime(distance_i, speed)
-            t.append(time)
 
-        return x, y, t
+
+        xList, yList = self.__DeleteDupl(xList, yList)
+        xList, yList = self.__ToInt(xList, yList)
+
+
+
+        t = self.__TimeList(x1, xList, y1, yList, begin_time, speed)
+
+
+
+        return xList, yList, t
+
+
+    def __CalcPointsOnLine(self, distance, angle, start_x, start_y):
+
+        x = list()
+        y = list()
+
+        for i in range(0, round(distance * 10), 1):
+
+            dis_i = i * 0.1
+            x.append(start_x + dis_i * math.cos(angle))
+            y.append(start_y + dis_i * math.sin(angle))
+
+        return x, y
+
+
+    def __RoundPoints(self, xList, yList):
+
+        xList = list(map(round, xList))
+        yList = list(map(round, yList))
+
+        return xList, yList
+
+
+    def __DeleteDupl(self, xList, yList):
+
+        new_x = list()
+        new_y = list()
+
+        for i in range(len(xList)):
+            if(not(xList[i] in new_x and yList[i] in new_y)):
+                new_x.append(xList[i])
+                new_y.append(yList[i])
+
+
+        return new_x, new_y
+
+
+    def __ToInt(self, xList, yList):
+
+        xList = list(map(int, xList))
+        yList = list(map(int, yList))
+
+
+
+        return xList, yList
+
+
+
+    def __TimeList(self, start_x, xList, start_y, yList, begin_time, speed):
+
+        timeList = list()
+
+        for i in range(len(xList)):
+            distance = math.sqrt((xList[i] - start_x) ** (2) + (yList[i] - start_y) ** (2))
+            t = begin_time + self.__CalcTime(distance, speed)
+            timeList.append(t)
+
+        return timeList
+
 
     def __CalcTime(self, distance, speed):
 
