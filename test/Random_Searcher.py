@@ -129,16 +129,16 @@ def main():
     randomSearcher = Random_Searcher.RandomSearcher(surroundingSearcher, randomMoveSearcher)
     print(randomSearcher.Search(start_time              = 1000,\
                           max_time                      = 1150,\
-                          start_x                       = 99,\
-                          start_y                       = 99,\
+                          start_x                       = 50,\
+                          start_y                       = 50,\
                           max_random_x                  = 99,\
                           max_random_y                  = 99,\
                           min_random_x                  = 0,\
                           min_random_y                  = 0,\
-                          firstDirection                = 275,\
+                          firstDirection                = 225,\
                           threshold                     = 10,\
-                          speed                         = 2,\
-                          maxStraightLineSearchDistance = 30\
+                          speed                         = 5,\
+                          maxStraightLineSearchDistance = 15\
                           ))
 
 ###############################################################################
