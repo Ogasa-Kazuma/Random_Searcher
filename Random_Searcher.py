@@ -20,7 +20,6 @@ class RandomSearcher:
             last_y = y
 
 
-            print("before surrounding" + str(t))
             x, y, t, pollution = self.__CloseToOrigin(x, y, direction, threshold, t, max_time, speed, maxStraightLineSearchDistance)
             print(x, y, t, pollution)
             if(self.__IsTimeOver(t, max_time)):
@@ -56,7 +55,6 @@ class RandomSearcher:
         direction = baseDirection
 
         while(1):
-            print("__CloseToOrigin" + str(t))
             x, y, t, pollution = self.__surroundingSearcher.Search(x, y, direction, threshold, t, max_time, speed, maxStraightLineSearchDistance)
 
             if(self.__IsTimeOver(t, max_time)):
@@ -74,9 +72,9 @@ class RandomSearcher:
 
     def __RandomMove(self, start_x, start_y, max_x, max_y, min_x, min_y, start_time, max_time, speed, threshold):
         while(1):
-            print("start t __RandomMove t" + str(start_time))
+
             x, y, t, pollution = self.__randomMoveSearcher.Search(start_x, start_y, start_time, max_time, max_x, max_y, min_x, min_y,speed, threshold)
-            print("__RandomMove t, " + str(t))
+
             if(self.__IsTimeOver(t, max_time)):
                 return x, y, t, pollution
             if(pollution > threshold):

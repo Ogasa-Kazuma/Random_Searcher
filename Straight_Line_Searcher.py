@@ -25,7 +25,6 @@ class StraightLineSearcher:
 
 
     def __SearchLine(self, threshold, x1, x2, y1, y2, start_time, max_time, speed):
-        print("start straight line" + str(start_time))
         x_points, y_points, times = self.__SpecifyPointsBetweenTwoPoints(x1, x2, y1, y2, start_time, speed)
 
         for point_i in range(len(x_points)):
