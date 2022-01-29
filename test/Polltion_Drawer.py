@@ -24,6 +24,8 @@ drawer = Pollution_Drawer.PollutionDrawer(reshaper)
 pollutionFile = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/3日/22時/49分/16秒/0.pkl"
 ax = drawer.Draw(ax, pollutionFile, indexNames)
 pollutionFile = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/3日/22時/49分/16秒/100.pkl"
-
+ax.set_aspect('equal')
+ax.set_xlabel("x [m]")
+ax.set_ylabel("y [m]")
 ax.scatter(1, 1, c = 'red')
 ax.plot([20, 50], [79, 30], c = 'blue')

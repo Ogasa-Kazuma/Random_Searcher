@@ -47,12 +47,13 @@ class SearchingDatas:
 
 
 pklReader = Pickle_Reader.PickleReader()
-searchingResult = pklReader.Read("SearchingDataLog/0.pkl")
+searchingResult = pklReader.Read("/home/kazuma/研究/RandomSearcher/ResultLog0126/search_depth_10_firstDirection_240_0126_1715/5.pkl")
 print(type(searchingResult['x'].values.tolist()))
 
 xList = searchingResult['x'].values.tolist()
 yList = searchingResult['y'].values.tolist()
 timeList = searchingResult['t'].values.tolist()
+print(searchingResult['filePath'].values.tolist())
 
 
 searchingDatas = SearchingDatas(xList, yList, timeList)
@@ -69,5 +70,7 @@ indexNames = Saved_Pollution_Indexs.SavedPollutionIndexs("pollutions", 'x', 'y')
 drawer = Pollution_Drawer.PollutionDrawer(reshaper)
 pollutionFileDir = "/home/kazuma/研究/PollutionCreate/DataLog/2022年/1月/3日/22時/49分/16秒"
 
+#Thesis_Anime_0126/
+saveName = input("input save directory and file name")
 animeMaker = Animation_Maker.AnimationMaker(drawer)
-animeMaker.Make(pollutionFileDir, searchingDatas, show_step = 10, indexNames = indexNames)
+animeMaker.Make(pollutionFileDir, searchingDatas, show_step = 25, indexNames = indexNames, isSave = True, saveName = saveName)

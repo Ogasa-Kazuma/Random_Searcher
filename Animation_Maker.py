@@ -8,7 +8,7 @@ class AnimationMaker:
         self.__pollutionDrawer = pollutionDrawer
 
 
-    def Make(self, pollutionFileDir, searchingDatas, show_step, indexNames):
+    def Make(self, pollutionFileDir, searchingDatas, show_step, indexNames, isSave = False, saveName = None):
 
 
         start_time, last_time = self.__AnimationTimeRange(searchingDatas)
@@ -16,6 +16,7 @@ class AnimationMaker:
         end_time = last_time + 1
 
         for time_i in range(start_time, end_time, show_step):
+
             fig = plt.figure()
             ax = fig.add_subplot(111)
             ax.set_aspect('equal')
@@ -23,11 +24,20 @@ class AnimationMaker:
             ax.set_ylabel("y [m]")
 
             pollutionFile = pollutionFileDir + "/" + str(time_i) + ".pkl"
+
             ax = self.__MakePollutionScatter(ax, pollutionFile, indexNames)
             xList, yList = self.__ExcludeOverTime(time_i, searchingDatas)
+
             ax = self.__DrawSearchedPoints(ax, xList, yList)
+            ax = self.__DrawStartPoint(ax, xList, yList)
+            if(isSave):
+                self.__SavePic(fig, saveName, time_i)
             print(time_i)
-            #plt.show()#いる？
+
+
+        ax = self.__DrawLastPoint(ax, xList, yList)
+        if(isSave):
+            self.__SavePic(fig, saveName, last_time)
 
         return ax
 
@@ -64,8 +74,24 @@ class AnimationMaker:
 
 
 
+    def __DrawStartPoint(self, ax, xList, yList):
+        ax.scatter(xList[0], yList[0], marker = 'D', c = 'darkorange', linewidth = 0.5, ec = 'black', zorder = 2)
+        return ax
+
+
+
+
     def __DrawSearchedPoints(self, ax, xList, yList):
 
-        ax.plot(xList, yList, c = 'blue', linewidth = 1)
+        ax.plot(xList, yList, c = 'dodgerblue', linewidth = 1, zorder = 1)
 
         return ax
+
+
+    def __DrawLastPoint(self, ax, xList, yList):
+        ax.scatter(xList[-1], yList[-1], marker = 'D', c = 'aqua', linewidth = 0.5, ec = 'black', zorder = 2)
+        return ax
+
+
+    def __SavePic(self, fig, saveName, time):
+        fig.savefig(str(saveName) + str(time) + '.png', dpi = 300)
