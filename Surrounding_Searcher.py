@@ -24,7 +24,8 @@ class SurroundingSearcher:
                 return x, y, t, pollution
 
             direction = self.__ChoiceNextDirection(baseDirection)
-            x_next, y_next = self.__CalcNextPosition(start_x, start_y, maxDistance, direction)
+            x_next, y_next = self.__CalcNextPosition(x, y, maxDistance, direction)
+
             x, y, t, pollution = self.__SearchStraightLine(threshold, x, y, x_next, y_next, t, max_time, speed)
 
 
@@ -51,6 +52,7 @@ class SurroundingSearcher:
 
     def __CalcNextPosition(self, x, y, maxDistance, direction):
         x_change, y_change = self.__coordinateCalculator.Calc(maxDistance, direction)
+
         x = x + x_change
         y = y + y_change
         return x, y

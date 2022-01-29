@@ -36,7 +36,10 @@ def main():
     onePointSearcher = One_Point_Searcher.OnePointSearcher(dataRecorder, field, pollutionReader)
 
     lineSearcher = Straight_Line_Searcher.StraightLineSearcher(onePointSearcher)
-    print(lineSearcher.Search(dict(threshold = 90, x1 = 50, x2 = 70, y1 = 50, y2 = 70, start_time = 0, max_time = -1, speed = 1)))
+
+
+
+    print(lineSearcher.Search(dict(threshold = 90, x1 = 50, x2 = 50.5, y1 = 50.5, y2 = 70.5, start_time = 0, max_time = -1, speed = 1)))
     print(lineSearcher.Search(dict(threshold = 90, x1 = 10, x2 = 0, y1 = 70, y2 = 0, start_time = 1, max_time = 2, speed = 20)))
     print(lineSearcher.Search(dict(threshold = 90, x1 = 10, x2 = 0, y1 = 70, y2 = 0, start_time = 0, max_time = 200, speed = 1)))
     print(lineSearcher.Search(dict(threshold = 90, x1 = 10, x2 = 0, y1 = 70, y2 = 0, start_time = 0, max_time = 200, speed = 1)))
